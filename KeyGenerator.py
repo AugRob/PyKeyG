@@ -5,29 +5,30 @@ import argparse
 
 def main():
 	parser = argparse.ArgumentParser()
+	parser.add_argument('--quiet', action='store_true')
 	parser.add_argument("key_len")
 	args = parser.parse_args()
-
+	keyLength = int(args.key_len)
 	
-    numList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-    alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w','x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R','S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-    specChars = ['!', '"', "'", '@', '#', '$', '%', '&', '(', ')', '*', '+', '=', '`', '-', '.', '/', ':', ';', '<', '>', ',', '?', '[', ']', '{', "}", '\\', '_', '|', '~']
+	numList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+	alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w','x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R','S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+	specChars = ['!', '"', "'", '@', '#', '$', '%', '&', '(', ')', '*', '+', '=', '`', '-', '.', '/', ':', ';', '<', '>', ',', '?', '[', ']', '{', "}", '\\', '_', '|', '~']
 
-    charList = numList + alphabet + specChars
+	charList = numList + alphabet + specChars
 
-    randList = []
+	randList = []
     
-    keyLength = int(raw_input("Desired key length: "))
+	#keyLength = int(raw_input("Desired key length: "))
     
     
-    while len(randList) < keyLength:
-        randList.append(charList[random.randint(0, len(charList) - 1)])
+	while len(randList) < keyLength:
+		randList.append(charList[random.randint(0, len(charList) - 1)])
 
-    key = ""
-    hsh = ""
-    numRnd = 0
+	key = ""
+	hsh = ""
+	numRnd = 0
 
-    for i in range(0, keyLength):
+	for i in range(0, keyLength):
 		
 		for i in range(0, len(hsh)):
 			if hsh[i] not in alphabet:
@@ -37,7 +38,8 @@ def main():
 		while hashNum > len(randList):
 			hashNum = hashNum / (random.randint(2,4))
 		
-		print hashNum
+		if args.quiet == False:
+			print hashNum
 		
 		for	i in range(0, hashNum):
 			random.shuffle(randList)
@@ -45,7 +47,11 @@ def main():
 		key += str(randList[random.randint(0, len(randList) - 1)])
 		hsh += str(hashlib.sha224(key).hexdigest())
 
-    print "KEY: ", str(key)
+	if args.quiet:
+		print key
+		exit
+	else:
+		print "KEY: ", str(key)
  
 
 if __name__ == '__main__':
