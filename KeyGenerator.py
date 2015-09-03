@@ -4,6 +4,11 @@ import argparse
 
 
 def main():
+	parser = argparse.ArgumentParser()
+	parser.add_argument("key_len")
+	args = parser.parse_args()
+
+	
     numList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w','x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R','S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
     specChars = ['!', '"', "'", '@', '#', '$', '%', '&', '(', ')', '*', '+', '=', '`', '-', '.', '/', ':', ';', '<', '>', ',', '?', '[', ']', '{', "}", '\\', '_', '|', '~']
@@ -40,7 +45,7 @@ def main():
 		key += str(randList[random.randint(0, len(randList) - 1)])
 		hsh += str(hashlib.sha224(key).hexdigest())
 
-    print "KEY: ", str(key), str(numRnd)
+    print "KEY: ", str(key)
  
 
 if __name__ == '__main__':
